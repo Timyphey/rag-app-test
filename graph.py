@@ -9,7 +9,7 @@ llm = ChatOllama(model="llama3.2:3b")
 
 # Embeddings
 from langchain_ollama import OllamaEmbeddings
-embeddings = OllamaEmbeddings(model="mxbai-embed-large")
+embeddings = OllamaEmbeddings(model="jina/jina-embeddings-v2-base-de")
 
 # Vector Store
 from langchain_qdrant import QdrantVectorStore
@@ -24,8 +24,7 @@ vector_store = QdrantVectorStore(
 
 prompt = ChatPromptTemplate.from_template(
     """
-    You are a helpful assistant. Answer the question based on the context provided.
-    If the context does not contain the answer, say "I don't know".
+    You are a helpful assistant. Try to answer the question based on the context provided.
     Answer in german.
     
     Question: {question}
@@ -42,11 +41,11 @@ class State(TypedDict):
     
 # Define application steps
 def retrieve(state: State):
-    retrieved_docs = vector_store.similarity_search(state["question"])
+    retrieved_docs = vector_store.similarity_search_with_relevance_scores(state["question"], k=5)
     return {"context": retrieved_docs}
 
 def generate(state: State):
-    docs_content = "\n\n".join(doc.page_content for doc in state["context"])
+    docs_content = "\n\n".join(doc.page_content for doc, _ in state["context"])
     messages = prompt.invoke({"question": state["question"], "context": docs_content})
     response = llm.invoke(messages)
     return {"answer": response.content}

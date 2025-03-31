@@ -1,6 +1,6 @@
 # Embeddings
 from langchain_ollama import OllamaEmbeddings
-embeddings = OllamaEmbeddings(model="mxbai-embed-large")
+embeddings = OllamaEmbeddings(model="jina/jina-embeddings-v2-base-de")
 
 # Vector Store
 from langchain_qdrant import QdrantVectorStore
@@ -12,7 +12,7 @@ client = QdrantClient("http://localhost:6333")
 client.delete_collection("test")
 client.create_collection(
     collection_name="test",
-    vectors_config={"size": 1024, "distance": "Cosine"}
+    vectors_config={"size": 768, "distance": "Cosine"}
 )
 vector_store = QdrantVectorStore(
     client=client,
@@ -33,8 +33,7 @@ for pdf_file in pdf_files:
 
 # Split documents into smaller chunks
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200, is_separator_regex=True)
-text_splitter.separator = "\n"
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 split_docs = text_splitter.split_documents(documents)
 print(f"Total number of chunks: {len(split_docs)}")
 
