@@ -1,0 +1,17 @@
+[project]
+name = "rag-app-test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain-community>=0.3.20",
+    "langchain-core>=0.3.49",
+    "langchain-ollama>=0.3.0",
+    "langchain-qdrant>=0.2.0",
+    "langchain-text-splitters>=0.3.7",
+    "langgraph>=0.3.21",
+    "pypdf>=5.4.0",
+    "qdrant-client>=1.13.3",
+    "streamlit>=1.44.0",
+]
