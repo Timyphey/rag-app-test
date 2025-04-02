@@ -5,8 +5,8 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # LLM
 from langchain_ollama.chat_models import ChatOllama
-llm = ChatOllama(model="llama3.2:3b")
-#llm = ChatOllama(model="deepseek-r1:1.5b")
+#llm = ChatOllama(model="llama3.2:3b")
+llm = ChatOllama(model="deepseek-r1:1.5b")
 #llm = ChatOllama(model="deepseek-r1:8b")
 
 # Embeddings
@@ -60,7 +60,7 @@ def generate_answer(state: State):
 
 # Compile application and test
 graph_builder = StateGraph(State).add_sequence([retrieve_context, generate_answer])
-graph_builder.add_edge(START, "retrieve")
+graph_builder.add_edge(START, "retrieve_context")
 graph = graph_builder.compile()
 
 def invoke_user_question(question: str):
