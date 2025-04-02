@@ -5,8 +5,9 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # LLM
 from langchain_ollama.chat_models import ChatOllama
-#llm = ChatOllama(model="llama3.2:3b")
-llm = ChatOllama(model="deepseek-r1:1.5b")
+#llm = ChatOllama(model="llama3.2:1.5b")
+llm = ChatOllama(model="llama3.2:3b")
+#llm = ChatOllama(model="deepseek-r1:1.5b")
 #llm = ChatOllama(model="deepseek-r1:8b")
 
 # Embeddings
