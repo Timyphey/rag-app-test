@@ -2,13 +2,20 @@ from langchain_core.documents import Document
 from langgraph.graph import START, StateGraph
 from typing_extensions import List, TypedDict
 from langchain_core.prompts import ChatPromptTemplate
-
+# dotenv
+from dotenv import load_dotenv
+import os
+load_dotenv()
 # LLM
 from langchain_ollama.chat_models import ChatOllama
 #llm = ChatOllama(model="llama3.2:1.5b")
-llm = ChatOllama(model="llama3.2:3b")
+#llm = ChatOllama(model="llama3.2:3b")
 #llm = ChatOllama(model="deepseek-r1:1.5b")
 #llm = ChatOllama(model="deepseek-r1:8b")
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro-exp-03-25", 
+                             api_key=os.getenv("GENAI_API_KEY"))
 
 # Embeddings
 from langchain_ollama import OllamaEmbeddings
